@@ -4,9 +4,18 @@
     <meta charset="utf-8">
 
     <!-- Load d3.js -->
-     <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
     <script type="text/javascript" src="cod.js"></script>
 
     <!-- Create a div where the graph will take place -->
     <div id="my_dataviz"></div>
+         <style>
+          .bar:hover {
+            fill: "brown";
+          }
+          .axis--x path {
+            display: none;
+          }
+        </style>
+    <svg width="1340" height="620"></svg>
 </html>
