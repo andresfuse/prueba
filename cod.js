@@ -9,8 +9,7 @@ var svg = d3.select(DOM.svg(width, height))
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
   // Compute quartiles, median, inter quantile range min and max --> these info are then used to draw the box.
   var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
@@ -21,12 +20,12 @@ var svg = d3.select(DOM.svg(width, height))
       q3 : d3.quantile(c.map(function(g) { return g.variable;}).sort(d3.ascending),.75),
       min :d3.min(c,function(g){return g.variable}),
       max :d3.max(c,function(g){return g.variable}),};})
-    .entries(data)
+    .entries(datos)
 
   // Show the X scale
   var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain([datos.key])
+    .domain([sumstat.key])
     .paddingInner(1)
     .paddingOuter(.5)
   svg.append("g")
@@ -35,13 +34,13 @@ var svg = d3.select(DOM.svg(width, height))
 
   // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([3,9])
+    .domain([d3.min(datos,d=>d.variable),d3.max(sumstat,d=>d.variable)])
     .range([height, 0])
-  svg.append("g").call(d3.axisLeft(y))
+  svg.append("g")
+    .call(d3.axisLeft(y))
 
   // Show the main vertical line
-  svg
-    .selectAll("vertLines")
+  svg.selectAll("vertLines")
     .data(sumstat)
     .enter()
     .append("line")
@@ -56,8 +55,7 @@ var svg = d3.select(DOM.svg(width, height))
   var color = d3.scaleOrdinal("scale-chromatic");
   
   var boxWidth = 100
-  svg
-    .selectAll("boxes")
+  svg.selectAll("boxes")
     .data(sumstat)
     .enter()
     .append("rect")
@@ -85,12 +83,12 @@ var svg = d3.select(DOM.svg(width, height))
 var jitterWidth = 50
 svg
   .selectAll("indPoints")
-  .data(data)
+  .data(datos)
   .enter()
   .append("circle")
     .attr("cx", function(d){return(x(d.country) - jitterWidth/2 + Math.random()*jitterWidth )})
     .attr("cy", function(d){return(y(d.variable))})
-    .attr("r", 4)
+    .attr("r", 2.5)
     .style("fill", "gray")
     .attr("stroke", "black")
  
