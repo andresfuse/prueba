@@ -89,4 +89,6 @@ svg.selectAll("indPoints")
     .attr("r", 2.5)
     .style("fill", "gray")
     .attr("stroke", "black")
- 
+}
+
+barplot(base_l1ux.csv, "area")
