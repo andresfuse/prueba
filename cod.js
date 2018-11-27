@@ -34,7 +34,7 @@ var svg = d3.select(DOM.svg(width, height))
 
   // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([d3.min(datos,d=>d.variable),d3.max(sumstat,d=>d.variable)])
+    .domain([d3.min(datos,d=>d.variable),d3.max(datos,d=>d.variable)])
     .range([height, 0])
   svg.append("g")
     .call(d3.axisLeft(y))
