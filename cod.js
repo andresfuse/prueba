@@ -67,8 +67,7 @@ var svg = d3.select(DOM.svg(width, height))
         .style("fill", function(d){return color(sumstat.keys);})
 
   // Show the median
-  svg
-    .selectAll("medianLines")
+  svg.selectAll("medianLines")
     .data(sumstat)
     .enter()
     .append("line")
@@ -81,8 +80,7 @@ var svg = d3.select(DOM.svg(width, height))
 
 // Add individual points with jitter
 var jitterWidth = 50
-svg
-  .selectAll("indPoints")
+svg.selectAll("indPoints")
   .data(datos)
   .enter()
   .append("circle")
